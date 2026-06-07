@@ -182,12 +182,12 @@ const Login = () => {
           <p>
             Made with <span className="text-red-500">❤️</span> by{' '}
             <a
-              href="https://github.com/AlirezaSadeghi72"
+              href="https://github.com/zZedix"
               target="_blank"
               rel="noopener noreferrer"
               className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
             >
-              AlirezaSadeghi72
+              zZedix
             </a>
           </p>
           <p className="mt-1">{version}</p>

@@ -122,7 +122,7 @@ def cmd_update(args):
         print("Downloading latest docker-compose.yml...")
         try:
             import urllib.request
-            compose_url = "https://raw.githubusercontent.com/zZedix/Smite/main/node/docker-compose.yml"
+            compose_url = "https://raw.githubusercontent.com/AlirezaSadeghi72/Smite/main/node/docker-compose.yml"
             urllib.request.urlretrieve(compose_url, node_dir / "docker-compose.yml")
             print("docker-compose.yml updated")
         except Exception as e:
@@ -183,7 +183,7 @@ def cmd_uninstall(args):
     print("  - All Docker volumes")
     print("  - Installation directory (/opt/smite-node)")
     print("  - CLI script (/usr/local/bin/smite-node)")
-    print("  - Docker images (ghcr.io/zzedix/smite-node)")
+    print("  - Docker images (ghcr.io/AlirezaSadeghi72/smite-node)")
     print("\n⚠️  ALL DATA WILL BE LOST!")
     print("=" * 60)
     
@@ -227,9 +227,9 @@ def cmd_uninstall(args):
     
     print("\n[3/5] Removing Docker images...")
     try:
-        subprocess.run(["docker", "rmi", "-f", "ghcr.io/zzedix/smite-node"], capture_output=True, check=False)
-        subprocess.run(["docker", "rmi", "-f", "ghcr.io/zzedix/smite-node:latest"], capture_output=True, check=False)
-        result = subprocess.run(["docker", "images", "--format", "{{.Repository}}:{{.Tag}}", "ghcr.io/zzedix/smite-node"], 
+        subprocess.run(["docker", "rmi", "-f", "ghcr.io/AlirezaSadeghi72/smite-node"], capture_output=True, check=False)
+        subprocess.run(["docker", "rmi", "-f", "ghcr.io/AlirezaSadeghi72/smite-node:latest"], capture_output=True, check=False)
+        result = subprocess.run(["docker", "images", "--format", "{{.Repository}}:{{.Tag}}", "ghcr.io/AlirezaSadeghi72/smite-node"], 
                               capture_output=True, text=True)
         for tag in result.stdout.strip().split('\n'):
             if tag:

@@ -98,7 +98,7 @@ else
     if [ "${SMITE_VERSION:-latest}" = "next" ]; then
         GIT_BRANCH="-b next"
     fi
-    git clone --depth 1 $GIT_BRANCH https://github.com/zZedix/Smite.git "$INSTALL_DIR" || {
+    git clone --depth 1 $GIT_BRANCH https://github.com/AlirezaSadeghi72/Smite.git "$INSTALL_DIR" || {
         echo -e "${RED}Error: Failed to clone repository${NC}"
         exit 1
     }
@@ -298,7 +298,7 @@ fi
 
 # Try to pull prebuilt images first (will fallback to build if not available)
 echo "  Pulling prebuilt images from GHCR..."
-if docker pull ghcr.io/zzedix/smite-panel:${SMITE_VERSION} 2>/dev/null; then
+if docker pull ghcr.io/AlirezaSadeghi72/smite-panel:${SMITE_VERSION} 2>/dev/null; then
     progress "Panel image pulled from GHCR"
 else
     echo -e "${YELLOW}Prebuilt image not found, will build locally...${NC}"

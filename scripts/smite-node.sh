@@ -130,27 +130,63 @@ fi
 if [ ! -f "Dockerfile" ]; then
     echo "Cloning node files from GitHub..."
     TEMP_DIR=$(mktemp -d)
-    git clone --depth 1 $GIT_BRANCH https://github.com/zZedix/Smite.git "$TEMP_DIR" || {
-        echo "Error: Failed to clone repository"
+    REPO_BRANCH="${GIT_BRANCH:-main}"
+    ZIP_URL="https://github.com/AlirezaSadeghi72/Smite/archive/refs/heads/${REPO_BRANCH}.zip"
+    
+    # دانلود فایل ZIP
+    curl -L -o "$TEMP_DIR/Smite.zip" "$ZIP_URL" || {
+        echo "Error: Failed to download repository"
+        rm -rf "$TEMP_DIR"
         exit 1
     }
     
-    # Copy node files
-    cp -r "$TEMP_DIR/node"/* .
+    # استخراج ZIP
+    unzip -q "$TEMP_DIR/Smite.zip" -d "$TEMP_DIR" || {
+        echo "Error: Failed to unzip repository"
+        rm -rf "$TEMP_DIR"
+        exit 1
+    }
+    
+    # پیدا کردن پوشه استخراج شده (معمولاً Smite-main یا Smite-<branch>)
+    EXTRACTED_DIR=$(find "$TEMP_DIR" -maxdepth 1 -type d -name "Smite-*" | head -n 1)
+    if [ -z "$EXTRACTED_DIR" ]; then
+        echo "Error: Could not find extracted directory"
+        rm -rf "$TEMP_DIR"
+        exit 1
+    fi
+    
+    # کپی فایل‌های node
+    if [ -d "$EXTRACTED_DIR/node" ]; then
+        cp -r "$EXTRACTED_DIR/node"/* .
+    else
+        echo "Error: 'node' directory not found in repository"
+        rm -rf "$TEMP_DIR"
+        exit 1
+    fi
+    
     rm -rf "$TEMP_DIR"
 else
-    # Update docker-compose.yml and Dockerfile if they exist
+    # بروزرسانی فایل‌های docker-compose.yml و Dockerfile در صورت وجود
     echo "Updating node files from GitHub..."
     TEMP_DIR=$(mktemp -d)
-    git clone --depth 1 $GIT_BRANCH https://github.com/zZedix/Smite.git "$TEMP_DIR" || {
-        echo "Warning: Failed to clone repository for updates"
+    REPO_BRANCH="${GIT_BRANCH:-main}"
+    ZIP_URL="https://github.com/AlirezaSadeghi72/Smite/archive/refs/heads/${REPO_BRANCH}.zip"
+    
+    curl -L -o "$TEMP_DIR/Smite.zip" "$ZIP_URL" || {
+        echo "Warning: Failed to download repository for updates"
         rm -rf "$TEMP_DIR"
     } || true
-    if [ -d "$TEMP_DIR/node" ]; then
-        cp -f "$TEMP_DIR/node/docker-compose.yml" docker-compose.yml 2>/dev/null || true
-        cp -f "$TEMP_DIR/node/Dockerfile" Dockerfile 2>/dev/null || true
-        rm -rf "$TEMP_DIR"
+    
+    if [ -f "$TEMP_DIR/Smite.zip" ]; then
+        unzip -q "$TEMP_DIR/Smite.zip" -d "$TEMP_DIR" 2>/dev/null || true
+        EXTRACTED_DIR=$(find "$TEMP_DIR" -maxdepth 1 -type d -name "Smite-*" | head -n 1)
+        if [ -n "$EXTRACTED_DIR" ] && [ -d "$EXTRACTED_DIR/node" ]; then
+            cp -f "$EXTRACTED_DIR/node/docker-compose.yml" docker-compose.yml 2>/dev/null || true
+            cp -f "$EXTRACTED_DIR/node/Dockerfile" Dockerfile 2>/dev/null || true
+        fi
     fi
+    
+    rm -rf "$TEMP_DIR"
 fi
 
 # Install CLI
@@ -167,7 +203,7 @@ else
     if [ "${SMITE_VERSION:-latest}" = "next" ]; then
         CLI_BRANCH="next"
     fi
-    sudo curl -L https://raw.githubusercontent.com/zZedix/Smite/${CLI_BRANCH}/cli/smite-node.py -o /usr/local/bin/smite-node
+    sudo curl -L https://raw.githubusercontent.com/AlirezaSadeghi72/Smite/${CLI_BRANCH}/cli/smite-node.py -o /usr/local/bin/smite-node
     sudo chmod +x /usr/local/bin/smite-node
 fi
 
@@ -251,7 +287,7 @@ if [ -z "${SMITE_VERSION}" ]; then
     export SMITE_VERSION=latest
 fi
 
-if docker pull ghcr.io/zzedix/smite-node:${SMITE_VERSION} 2>/dev/null; then
+if docker pull ghcr.io/AlirezaSadeghi72/smite-node:${SMITE_VERSION} 2>/dev/null; then
     echo "✅ Node image pulled from GHCR"
 else
     echo "⚠️  Prebuilt image not found, will build locally..."

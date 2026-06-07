@@ -47,7 +47,7 @@
 ### Quick Install
 
 ```bash
-sudo bash -c "$(curl -sL https://raw.githubusercontent.com/zZedix/Smite/main/scripts/install.sh)"
+sudo bash -c "$(curl -sL https://raw.githubusercontent.com/AlirezaSadeghi72/Smite/main/scripts/install.sh)"
 ```
 
 <details>
@@ -55,7 +55,7 @@ sudo bash -c "$(curl -sL https://raw.githubusercontent.com/zZedix/Smite/main/scr
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/zZedix/Smite.git
+git clone https://github.com/AlirezaSadeghi72/Smite.git
 cd Smite
 ```
 
@@ -96,7 +96,7 @@ smite admin create
 ### Quick Install
 
 ```bash
-sudo bash -c "$(curl -sL https://raw.githubusercontent.com/zZedix/Smite/main/scripts/smite-node.sh)"
+sudo bash -c "$(curl -sL https://raw.githubusercontent.com/AlirezaSadeghi72/Smite/main/scripts/smite-node.sh)"
 ```
 
 <details>
@@ -241,7 +241,7 @@ If you find Smite useful and want to support its development, consider making a 
 
 <div align="center">
   
-  **Made with ❤️ by [zZedix](https://github.com/zZedix)**
+  **Made with ❤️ by [AlirezaSadeghi72](https://github.com/AlirezaSadeghi72)**
   
   *Securing the digital world, one line of code at a time!*
   

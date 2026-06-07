@@ -775,7 +775,7 @@ def cmd_uninstall(args):
     print("  - Installation directory (/opt/smite)")
     print("  - CLI script (/usr/local/bin/smite)")
     print("  - Crontab entries related to smite")
-    print("  - Docker images (ghcr.io/zzedix/smite-panel, ghcr.io/zzedix/smite-nginx)")
+    print("  - Docker images (ghcr.io/AlirezaSadeghi72/smite-panel, ghcr.io/AlirezaSadeghi72/smite-nginx)")
     print("\n⚠️  ALL DATA WILL BE LOST!")
     print("=" * 60)
     
@@ -822,7 +822,7 @@ def cmd_uninstall(args):
     
     print("\n[3/6] Removing Docker images...")
     try:
-        for image in ["ghcr.io/zzedix/smite-panel", "ghcr.io/zzedix/smite-nginx"]:
+        for image in ["ghcr.io/AlirezaSadeghi72/smite-panel", "ghcr.io/AlirezaSadeghi72/smite-nginx"]:
             subprocess.run(["docker", "rmi", "-f", image], capture_output=True, check=False)
             subprocess.run(["docker", "rmi", "-f", f"{image}:latest"], capture_output=True, check=False)
             result = subprocess.run(["docker", "images", "--format", "{{.Repository}}:{{.Tag}}", image], 

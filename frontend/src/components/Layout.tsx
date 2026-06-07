@@ -166,18 +166,18 @@ const Layout = ({ children }: LayoutProps) => {
                 <span className="text-red-500">❤️</span>
                 <span>by</span>
                 <a 
-                  href="https://github.com/zZedix" 
+                  href="https://github.com/AlirezaSadeghi72" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-blue-600 dark:text-blue-400 hover:underline"
                 >
-                  zZedix
+                  AlirezaSadeghi72
                 </a>
               </div>
               <div className="flex items-center gap-2">
                 <span>{version}</span>
                 <a 
-                  href="https://github.com/zZedix/Smite" 
+                  href="https://github.com/AlirezaSadeghi72/Smite" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
